@@ -13,26 +13,30 @@ import { CgClose } from "react-icons/cg";
 import { Context } from "../context/contextApi";
 import Loader from "../shared/Loader";
 
-
 const Header = () => {
+    const [searchQuery, setSearchQuery] = useState("");
 
-    const [searchQuerry, setsearchQuerry] = useState("");
     const { loading, mobileMenu, setMobileMenu } = useContext(Context);
-    const navigate = useNavigate();
-    const searchQuerryHandler = (event) => {
-        if ((event?.key === 'Enter') || event === "searchButton" && searchQuerry?.length > 0) {
-            navigate(`searchResult/${searchQuerry}`);
-        }
 
-    }
+    const navigate = useNavigate();
+
+    const searchQueryHandler = (event) => {
+        if (
+            (event?.key === "Enter" || event === "searchButton") &&
+            searchQuery?.length > 0
+        ) {
+            navigate(`/searchResult/${searchQuery}`);
+        }
+    };
 
     const mobileMenuToggle = () => {
-        setMobileMenu(!mobileMenu)
-    }
+        setMobileMenu(!mobileMenu);
+    };
 
     const { pathname } = useLocation();
-    const pageName = pathname?.split("/")?.filter(Boolean)?.[0]
+    const pageName = pathname?.split("/")?.filter(Boolean)?.[0];
 
+    
 
     return (
         <div className="sticky top-0 z-10 flex flex-row items-center justify-between h-14 px-4 md:px-5 bg-black dark:bg-black">
@@ -51,9 +55,60 @@ const Header = () => {
                         )}
                     </div>
                 )}
-            </div>
-         </div>
-                )
-                }
 
-                export default Header
+
+
+
+
+                <Link to="/" className="flex h-5 items-center">
+                    <img
+                        className="h-full hidden dark:md:block"
+                        src={ytLogo}
+                        alt="Youtube"
+                    />
+                    <img
+                        className="h-full md:hidden"
+                        src={ytLogoMobile}
+                        alt="Youtube"
+                    />
+                </Link>
+            </div>
+            <div className="group flex items-center">
+                <div className="flex h-8 md:h-10 md:ml-10 md:pl-5 border border-[#303030] rounded-l-3xl group-focus-within:border-blue-500 md:group-focus-within:ml-5 md:group-focus-within:pl-0">
+                    <div className="w-10 items-center justify-center hidden group-focus-within:md:flex">
+                        <IoIosSearch className="text-white text-xl" />
+                    </div>
+                    <input
+                        type="text"
+                        className="bg-transparent outline-none text-white pr-5 pl-5 md:pl-0 w-44 md:group-focus-within:pl-0 md:w-64 lg:w-[500px]"
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyUp={searchQueryHandler}
+                        placeholder="Search"
+                        value={searchQuery}
+                    />
+                </div>
+                <button
+                    className="w-[40px] md:w-[60px] h-8 md:h-10 flex items-center justify-center border border-l-0 border-[#303030] rounded-r-3xl bg-white/[0.1]"
+                    onClick={() => searchQueryHandler("searchButton")}
+                >
+                    <IoIosSearch className="text-white text-xl" />
+                </button>
+            </div>
+            <div className="flex items-center">
+                <div className="hidden md:flex">
+                    <div className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-[#303030]/[0.6]">
+                        <RiVideoAddLine className="text-white text-xl cursor-pointer" />
+                    </div>
+                    <div className="flex items-center justify-center ml-2 h-10 w-10 rounded-full hover:bg-[#303030]/[0.6]">
+                        <FiBell className="text-white text-xl cursor-pointer" />
+                    </div>
+                </div>
+                <div className="flex h-8 w-8 overflow-hidden rounded-full md:ml-4">
+                    <img src="https://cdn.pixabay.com/photo/2017/01/23/19/40/woman-2003647_1280.jpg" alt="acImage" />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Header;
