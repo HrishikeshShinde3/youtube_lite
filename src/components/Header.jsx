@@ -16,7 +16,7 @@ import Loader from "../shared/Loader";
 const Header = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const { loading, mobileMenu, setMobileMenu } = useContext(Context);
+    const { loading, mobileMenu, setmobileMenu } = useContext(Context);
 
     const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ const Header = () => {
     };
 
     const mobileMenuToggle = () => {
-        setMobileMenu(!mobileMenu);
+        setmobileMenu(!mobileMenu);
     };
 
     const { pathname } = useLocation();
@@ -62,7 +62,7 @@ const Header = () => {
 
                 <Link to="/" className="flex h-5 items-center">
                     <img
-                        className="h-full hidden dark:md:block"
+                        className="h-full hidden md:block"
                         src={ytLogo}
                         alt="Youtube"
                     />
